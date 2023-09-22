@@ -5,6 +5,7 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello World");
+        System.out.println(addBinaryString("1010", "1011"));
     }
 
     // Task N1
@@ -47,15 +48,48 @@ public class Main {
         return n + 1; // If all integers from 1 to n are present, return n + 1
     }
 
+    // Task N4 - Solution 1
+//    public static String addBinaryString(String a, String b) {
+//        int aToDecimal = Integer.parseInt(a, 2);
+//        int bToDecimal = Integer.parseInt(b, 2);
+//
+//        String res = Integer.toBinaryString(aToDecimal + bToDecimal);
+//        return res;
+//    }
+
+    // Task N4 - Solution 2
+    public static String addBinaryString(String a, String b) {
+        StringBuilder result = new StringBuilder();
+        int carry = 0;
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+
+        while (i >= 0 || j >= 0) {
+            int sum = carry;
+
+            sum += a.charAt(i) - '0';
+            sum += b.charAt(j) - '0';
+
+            result.append(sum % 2);
+            carry = sum / 2;
+
+            i--;
+            j--;
+        }
+
+        if (carry != 0) result.append(carry);
+        return result.reverse().toString();
+    }
+
     // Task N5
     public int countVariants(int stearsCount) {
-        if(stearsCount == 1) return 1;
-        if(stearsCount == 2) return 2;
+        if (stearsCount == 1) return 1;
+        if (stearsCount == 2) return 2;
 
         int[] steps = new int[stearsCount + 1];
         steps[1] = 1;
         steps[2] = 2;
-        for (int i = 3; i <= stearsCount; i++){
+        for (int i = 3; i <= stearsCount; i++) {
             steps[i] = steps[i - 1] + steps[i - 2];
         }
         return steps[stearsCount];
