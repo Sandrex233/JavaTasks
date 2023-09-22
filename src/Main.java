@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -6,6 +7,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello World");
         System.out.println(addBinaryString("1010", "1011"));
+        System.out.println(minSplit(11));
     }
 
     // Task N1
@@ -24,6 +26,24 @@ public class Main {
             }
         }
         return -1;
+    }
+
+    // Task N2
+    public static int minSplit(int amount) {
+        int[] coins = {1,5,10,20,50};
+
+        int[] minCoins = new int[amount + 1];
+        Arrays.fill(minCoins, amount + 1);
+        
+        minCoins[0] = 0;
+
+        for (int coin : coins) {
+            for (int i = coin; i <= amount; i++) {
+                minCoins[i] = Math.min(minCoins[i], minCoins[i - coin] + 1);
+            }
+        }
+
+        return minCoins[amount] > amount ? -1 : minCoins[amount];
     }
 
     // Task N3
