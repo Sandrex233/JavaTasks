@@ -7,8 +7,7 @@ public class Main {
     }
 
     // Task N1
-
-    public static int singleNumber(int[] nums) {
+    public int singleNumber(int[] nums) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i : nums) {
             if(!map.containsKey(i)) {
@@ -24,4 +23,26 @@ public class Main {
         }
         return -1;
     }
+
+    // Task N3
+    public static int notContains(int[] array) {
+        if(array == null || array.length == 0) return 1;
+        int n = array.length;
+
+        HashSet<Integer> set = new HashSet<>();
+
+        for (int num : array) {
+            if (num > 0) {
+                set.add(num);
+            }
+        }
+        for (int i = 1; i <= n + 1; i++) {
+            if (!set.contains(i)) {
+                return i;
+            }
+        }
+
+        return n + 1; // If all integers from 1 to n are present, return n + 1
+    }
+
 }
